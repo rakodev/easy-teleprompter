@@ -1,0 +1,40 @@
+{
+  "name": "web-teleprompter",
+  "version": "1.0.0",
+  "description": "A professional web-based teleprompter application for content creators, presenters, and public speakers",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -c-1",
+    "serve": "npx http-server",
+    "dev": "npx http-server -p 3000 -c-1 -o"
+  },
+  "keywords": [
+    "teleprompter",
+    "presentation",
+    "public-speaking",
+    "content-creation",
+    "video-production",
+    "web-app",
+    "javascript",
+    "html5",
+    "css3"
+  ],
+  "author": "Web Teleprompter Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/web-teleprompter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/web-teleprompter/issues"
+  },
+  "homepage": "https://your-username.github.io/web-teleprompter/",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

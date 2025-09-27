@@ -1,0 +1,45 @@
+Welcome to Your Teleprompter Test
+
+This is a sample text file that you can use to test your teleprompter application.
+
+The teleprompter will scroll through this text at your chosen speed, allowing you to practice reading naturally while maintaining eye contact with your camera or audience.
+
+Key Points to Remember:
+
+Read at a natural pace that matches the scroll speed.
+
+Use pauses effectively to emphasize important points.
+
+Practice makes perfect - run through your content multiple times.
+
+The rewind and fast-forward features are your friends if you need to repeat sections.
+
+Benefits of Using a Teleprompter:
+
+Maintain consistent eye contact with your audience
+Reduce the need for memorization
+Improve your delivery confidence
+Create more professional-looking videos
+Eliminate the need for cue cards or notes
+
+Tips for Best Results:
+
+Position your screen at eye level with your camera
+Use a comfortable font size that you can read easily
+Set the scroll speed to match your natural speaking pace
+Practice with the keyboard shortcuts for smooth operation
+Keep your script conversational and natural
+
+Technical Features You Can Test:
+
+Try pausing with the spacebar during this sentence.
+Use the left arrow key to go back and re-read this line.
+Press the right arrow key to skip ahead quickly.
+Adjust the font size using the + and - keys.
+Test the mirror mode if you're reading while facing a camera.
+
+Remember: This teleprompter is designed to help you deliver your content more effectively. Take your time to get comfortable with all the features, and don't be afraid to customize the settings to match your personal preference.
+
+The more you practice with the teleprompter, the more natural your delivery will become. Soon you'll be creating professional-quality content with confidence and ease.
+
+Good luck with your presentations, videos, and speaking engagements!

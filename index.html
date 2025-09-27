@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional web-based teleprompter for content creators, presenters, and public speakers">
+    <meta name="keywords" content="teleprompter, presentation, public speaking, content creation, video production">
+    <meta name="author" content="Web Teleprompter Team">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2d7d32">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Teleprompter">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Professional Web Teleprompter">
+    <meta property="og:description" content="A feature-rich teleprompter application for web browsers">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./icon-512.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Professional Web Teleprompter">
+    <meta name="twitter:description" content="A feature-rich teleprompter application for web browsers">
+    
+    <title>Easy Teleprompter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzJkN2QzMiIvPgo8cGF0aCBkPSJNOCAxMGg4djJIOHYtMnptMCA0aDEydjJIOHYtMnptMCA0aDEwdjJIOHYtMnptMCA0aDZ2MkgIOHYtMnoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-scroll"></i> Easy Teleprompter</h1>
+            <div class="status-bar">
+                <span id="status">Ready - Load a text file or Edit the text</span>
+                <div class="status-indicators">
+                    <span id="speedIndicator" class="speed-indicator" style="display: none;">
+                        <i class="fas fa-tachometer-alt"></i> <span id="currentSpeed">1.5x</span>
+                    </span>
+                    <span id="progressIndicator" class="progress-indicator" style="display: none;">
+                        <i class="fas fa-percent"></i> <span id="currentProgress">0%</span>
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="control-panel" id="controlPanel">
+            <!-- Settings Content -->
+            <div class="control-panel-content" id="controlPanelContent">
+                <!-- Auto-hide Settings -->
+                <div class="control-group">
+                    <div class="options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="autoHideControls"> Auto-hide when playing
+                        </label>
+                    </div>
+                </div>
+            <!-- File Operations -->
+            <div class="control-group">
+                <h3>Content</h3>
+                <button id="loadFileBtn" class="btn btn-secondary">
+                    <i class="fas fa-folder-open"></i> Load File
+                </button>
+                <button id="editTextBtn" class="btn btn-secondary">
+                    <i class="fas fa-edit"></i> Edit Text
+                </button>
+                <button id="clearTextBtn" class="btn btn-secondary">
+                    <i class="fas fa-trash"></i> Clear
+                </button>
+                <button id="downloadBtn" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Save
+                </button>
+            </div>
+
+            <!-- Playback Controls -->
+            <div class="control-group">
+                <h3>Playback</h3>
+                <div class="playback-buttons">
+                    <button id="playBtn" class="btn btn-primary btn-large">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                    <button id="rewindBtn" class="btn btn-info">
+                        <i class="fas fa-backward"></i> Rewind
+                    </button>
+                    <button id="forwardBtn" class="btn btn-info">
+                        <i class="fas fa-forward"></i> Forward
+                    </button>
+                    <button id="resetBtn" class="btn btn-danger">
+                        <i class="fas fa-stop"></i> Reset
+                    </button>
+                    <button id="testScrollBtn" class="btn btn-secondary">
+                        <i class="fas fa-test-tube"></i> Test Scroll
+                    </button>
+                </div>
+            </div>
+
+            <!-- Speed Control -->
+            <div class="control-group">
+                <h3>Speed</h3>
+                <div class="slider-container">
+                    <input type="range" id="speedSlider" min="0.5" max="5.0" step="0.1" value="1.5" class="slider">
+                    <div class="slider-value" id="speedValue">1.5x</div>
+                </div>
+            </div>
+
+            <!-- Countdown Control -->
+            <div class="control-group">
+                <h3>Countdown</h3>
+                <div class="countdown-controls">
+                    <select id="countdownSelect" class="countdown-select">
+                        <option value="0">No Countdown</option>
+                        <option value="3">3 seconds</option>
+                        <option value="5" selected>5 seconds</option>
+                        <option value="10">10 seconds</option>
+                        <option value="15">15 seconds</option>
+                        <option value="30">30 seconds</option>
+                    </select>
+                    <input type="number" id="customCountdown" class="countdown-input" min="1" max="60" placeholder="Custom">
+                </div>
+            </div>
+
+            <!-- Font Size Control -->
+            <div class="control-group">
+                <h3>Font Size</h3>
+                <div class="slider-container">
+                    <input type="range" id="fontSlider" min="16" max="72" step="2" value="24" class="slider">
+                    <div class="slider-value" id="fontValue">24px</div>
+                </div>
+            </div>
+
+            <!-- Display Options -->
+            <div class="control-group">
+                <h3>Display</h3>
+                <div class="options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="mirrorMode"> Mirror
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="fullscreenMode"> Fullscreen
+                    </label>
+                    <button id="themeToggle" class="btn btn-secondary theme-btn">
+                        <i class="fas fa-moon"></i> Dark
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reading Indicator -->
+            <div class="control-group">
+                <h3>Reading Guide</h3>
+                <div class="options">
+                    <select id="readingIndicator" class="indicator-select">
+                        <option value="none">No Indicator</option>
+                        <option value="highlight" selected>Highlight Line</option>
+                        <option value="arrow">Arrow Pointer</option>
+                        <option value="both">Both</option>
+                    </select>
+                </div>
+            </div>
+            </div> <!-- Close control-panel-content -->
+            
+            <!-- Bottom Collapse Button -->
+            <div class="control-panel-footer">
+                <button id="collapseBtn" class="btn btn-secondary collapse-btn">
+                    <i class="fas fa-chevron-up"></i> Hide Settings
+                </button>
+            </div>
+        </div>
+
+        <!-- Collapsed Control Panel Show Button -->
+        <button id="showControlsBtn" class="show-controls-btn" style="display: none;">
+            <i class="fas fa-cog"></i>
+        </button>
+
+        <!-- Text Display Area -->
+        <div class="text-container" id="textContainer">
+            <div class="text-display" id="textDisplay">
+                <div class="text-content" id="textContent">
+                    <h2>Welcome to the Web Teleprompter!</h2>
+                    
+                    <p>This web-based teleprompter provides smooth auto-scrolling text perfect for video recording, presentations, or public speaking.</p>
+                    
+                    <h3>How to Use:</h3>
+                    <ol>
+                        <li>Click "Edit Text" to write your own content, or "Load File" to import a text file</li>
+                        <li>Adjust the font size and speed to your preference</li>
+                        <li>Click Play or press SPACE to start scrolling</li>
+                        <li>Use keyboard shortcuts for hands-free control</li>
+                    </ol>
+                    
+                    <h3>Keyboard Shortcuts:</h3>
+                    <ul>
+                        <li><strong>SPACE:</strong> Play/Pause</li>
+                        <li><strong>Arrow Keys:</strong> Navigate and adjust speed</li>
+                        <li><strong>R:</strong> Reset to beginning</li>
+                        <li><strong>F:</strong> Toggle fullscreen</li>
+                        <li><strong>M:</strong> Toggle mirror mode</li>
+                        <li><strong>+/-:</strong> Adjust font size</li>
+                        <li><strong>H:</strong> Show help</li>
+                    </ul>
+                    
+                    <p>Click "Edit Text" above to replace this content with your own script!</p>
+                </div>
+            </div>
+            
+            <!-- Scroll Progress Indicator -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <!-- Hidden File Input -->
+        <input type="file" id="fileInput" accept=".txt" style="display: none;">
+
+        <!-- Text Editor Modal -->
+        <div id="textEditorModal" class="modal">
+            <div class="modal-content modal-large">
+                <span class="close" id="closeTextEditor">&times;</span>
+                <h2>Edit Your Text</h2>
+                <textarea id="textEditor" placeholder="Type or paste your teleprompter script here...
+
+You can format it with:
+- Line breaks for paragraphs
+- CAPITAL LETTERS for emphasis
+- [Stage directions in brackets]
+
+When you're done, click 'Apply Changes' to use this text in the teleprompter."></textarea>
+                <div class="modal-actions">
+                    <button id="applyTextChanges" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Apply Changes
+                    </button>
+                    <button id="cancelTextChanges" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keyboard Help Modal -->
+        <div id="helpModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Keyboard Shortcuts</h2>
+                <div class="shortcuts-grid">
+                    <div class="shortcut">
+                        <kbd>SPACE</kbd>
+                        <span>Play/Pause</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>←</kbd>
+                        <span>Rewind</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>→</kbd>
+                        <span>Fast Forward</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>↑</kbd>
+                        <span>Speed Up</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>↓</kbd>
+                        <span>Slow Down</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>R</kbd>
+                        <span>Reset</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>F</kbd>
+                        <span>Fullscreen</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>M</kbd>
+                        <span>Mirror Mode</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>+</kbd>
+                        <span>Font Size +</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>-</kbd>
+                        <span>Font Size -</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>H</kbd>
+                        <span>Show Help</span>
+                    </div>
+                    <div class="shortcut">
+                        <kbd>ESC</kbd>
+                        <span>Exit Fullscreen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Button -->
+        <button id="helpBtn" class="help-btn" title="Keyboard Shortcuts (H)">
+            <i class="fas fa-question"></i>
+        </button>
+
+        <!-- Countdown Overlay -->
+        <div id="countdownOverlay" class="countdown-overlay">
+            <div class="countdown-display">
+                <div class="countdown-number" id="countdownNumber">5</div>
+                <div class="countdown-text">Get Ready...</div>
+                <button id="cancelCountdown" class="btn btn-secondary countdown-cancel">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="teleprompter.js"></script>
+</body>
+</html>
