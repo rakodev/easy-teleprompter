@@ -66,6 +66,11 @@ class Teleprompter {
         this.autoHideControls = document.getElementById('autoHideControls');
         this.controlsVisible = true;
         
+        // Scroll-based control variables
+        this.lastScrollTop = 0;
+        this.scrollThreshold = 10; // Minimum scroll distance to trigger action
+        this.isUserScrolling = false;
+        
         // Countdown controls
         this.countdownSelect = document.getElementById('countdownSelect');
         this.customCountdown = document.getElementById('customCountdown');
@@ -148,6 +153,7 @@ class Teleprompter {
         this.textDisplay.addEventListener('scroll', () => {
             this.updateProgress();
             this.updateReadingPosition();
+            this.handleScrollBasedControls();
         });
         
         // Add click handler for debugging scroll issues
@@ -762,6 +768,38 @@ class Teleprompter {
         this.showControlsBtn.style.display = 'none';
         this.controlsVisible = true;
         this.updateStatus('Settings visible');
+    }
+
+    handleScrollBasedControls() {
+        const currentScrollTop = this.textDisplay.scrollTop;
+        
+        // Detect scroll direction
+        const scrollingDown = currentScrollTop > this.lastScrollTop;
+        const scrollingUp = currentScrollTop < this.lastScrollTop;
+        
+        // Only act if scroll amount exceeds threshold
+        const scrollDelta = Math.abs(currentScrollTop - this.lastScrollTop);
+        if (scrollDelta < this.scrollThreshold) {
+            this.lastScrollTop = currentScrollTop;
+            return;
+        }
+        
+        // Don't interfere with auto-scrolling
+        if (this.isPlaying) {
+            this.lastScrollTop = currentScrollTop;
+            return;
+        }
+        
+        // Show settings if scrolling up at the top of the page
+        if (scrollingUp && currentScrollTop <= 50 && !this.controlsVisible) {
+            this.showControls();
+        }
+        // Hide settings if scrolling down and not at the top
+        else if (scrollingDown && currentScrollTop > 100 && this.controlsVisible) {
+            this.hideControls();
+        }
+        
+        this.lastScrollTop = currentScrollTop;
     }
 
     showTextEditor() {
